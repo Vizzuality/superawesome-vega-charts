@@ -1,2 +1,3 @@
 # Line charts
-![example](/line-graph/multiline-graph-legend-tooltip/example.png?raw=true "test2")
+![example](/line-graph/multiline-grpah-legend-tooltip/example.png?raw=true "test2")
+
