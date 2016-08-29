@@ -62,11 +62,11 @@
     }
   ],
   "signals": [{
-    "init": {"xval":0,"yval":0},
+    "init": {"xval":0, "year":1950},
     "name": "indexDate",
     "streams": [{
-      "type": "line:mousemove", 
-      "expr": "{xval: +iscale('x', eventX()), yval: +iscale('y', eventY()), year:+utcyear(iscale('x', eventX()))}"
+      "type": "@datalines:mouseover", 
+      "expr": "{xval: +iscale('x', eventX()),yval: +iscale('y', eventY()), year:+utcyear(iscale('x', eventX()))}"
     }]
   }],
   "scales": [
@@ -107,7 +107,29 @@
     }
   ],
   "axes": [
-    {"type": "x","scale": "x","title": "years","ticks": 10},
+    {"type": "x","scale": "x","title": "years","ticks": 10, 
+    "properties":{
+      "title": {
+        "font": {"value": "\"Montserrat\", sans-serif"},
+         "fontSize": {"value": 12}
+       },
+       "ticks": {
+         "stroke": {"value": "#9BA2AA"}
+       },
+       "labels": {
+         "font": {"value": "\"Montserrat\", sans-serif"},
+         "fill": {"value": "#9BA2AA"},
+         "fontSize": {"value": 10},
+         "align": {"value": "center"},
+         "baseline": {"value": "top"}
+       },
+      "axis": {
+         "stroke": {"value": "#E6E6E6"},
+         "opacity": {"value": 1},
+         "strokeWidth": {"value": 1.5}
+       }
+     }
+    },
     {
       "type": "y",
       "scale": "y",
@@ -117,15 +139,35 @@
       "ticks": 3,
       "values":[-1, 0, 5, 10,15],
       "properties": {
+        "axis": {
+         "stroke": {"value": "#E6E6E6"},
+         "opacity": {"value": 0},
+         "strokeWidth": {"value": 1.5}
+       },
+       "ticks": {
+         "stroke": {"value": "#9BA2AA"}
+       },
+       "labels": {
+         "font": {"value": "\"Montserrat\", sans-serif"},
+         "fill": {"value": "#9BA2AA"},
+         "fontSize": {"value": 10},
+         "align": {"value": "right"},
+         "baseline": {"value": "middle"}
+       },
         "title": {
-         "fontSize": {"value": 16},
+         "font": {"value": "\"Montserrat\", sans-serif"},
+         "fontSize": {"value": 12},
+         "y":{"value": -20},
          "angle": 90
        }
       }
     }
   ],
   "marks": [
-    {
+    { "name":"datalines",
+      "type": "group",
+      "marks": [
+        {
       "type": "line",
       "from": {"data": "hist"},
       "properties": {
@@ -138,7 +180,7 @@
         }
       }
     },
-    {
+        {
       "type": "line",
       "from": {"data": "rcp45"},
       "properties": {
@@ -151,7 +193,7 @@
         }
       }
     },
-    {
+        {
       "type": "line",
       "from": {"data": "rcp85"},
       "properties": {
@@ -163,8 +205,8 @@
           "strokeOpacity": {"value": 1}
         }
       }
-    },
-    {
+    }]},
+    { "name":"tooltip",
       "type": "group",
       "marks": [
         {
@@ -190,34 +232,37 @@
               "y": {"value": 35},
               "fill": {"value": "#3B4F63"},
               "font": {"value": "\"Montserrat\", sans-serif"},
-              "text": {"template": "{{indexDate.yval}} ºF"},
+              "text": {"template": "{{indexDate.yval|number:'.2f'}} ºF"},
               "opacity": {"value": 0.8},
               "fontSize": {"value": 11}
             }
           }
-        },
-        {
-    "type": "symbol",
-    "properties": {
-      "update": {
-        "x": {"scale": "x", "signal": "indexDate.xval"},
-        "y": {"scale": "y", "signal": "indexDate.yval"},
-        "stroke": {"value": "#000"}
-      }
-    } 
-  }
+        }
       ],
       "properties": {
         "update": {
-          "x": {"scale": "x", "signal": "indexDate.xval"},
-          "y": {"scale": "y", "signal": "indexDate.yval"},
+          "x": {"scale": "x", "signal": "indexDate.xval", "offset": 0},
+          "y": {"scale": "y", "signal": "indexDate.yval", "offset": 0},
           "fill": {"value": "#fff"},
           "width": {"value": 150},
           "height": {"value": 45},
           "fillOpacity": {"value": 0.85}
         }
       }
-    }   
+    },
+    {
+    "type": "symbol",
+    "ease":"linear",
+    "properties": {
+      "update": {
+        "size":{"value":3},
+        "shape":{"value":"cross"},
+        "stroke": {"value": "#000"},
+        "x": {"scale": "x", "signal": "indexDate.xval"},
+        "y": {"scale": "y","signal": "indexDate.yval"}
+      }
+    } 
+  }
     
   ],
    "legends": [
@@ -238,8 +283,8 @@
           }
         },
         "symbols": {
-         "shape":"square",
-         "size":2
+         "shape":{"value":"circle"},
+         "size":{"value":10}
         }
       }
     }
