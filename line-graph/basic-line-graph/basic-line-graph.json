@@ -1,0 +1,247 @@
+{
+  "padding": {"top": 30,"left": 35,"right": 5,"bottom": 40},
+  "data": [
+    {
+      "name": "hist",
+      "url": "http://api.resourcewatch.org/query/4e6fbd04-253d-4fae-929e-0dbc8e106c86?sql=select year, AVG_HIST,AVG_RCP45, AVG_RCP85 from index_4e6fbd04253d4fae929e0dbc8e106c86 order by year ASC",
+      "format": {
+        "type": "json",
+        "property": "data",
+        "parse": {"year": "date:\"%Y\""}
+      },
+      "transform": [
+        {"type": "filter","test": "datum.AVG_HIST > 0"},
+        {
+          "type": "formula",
+          "field": "AVG_HIST_perc",
+          "expr": "((datum.AVG_HIST - 44)+ 12.45)"
+        }
+      ]
+    },
+    {
+      "name": "rcp45",
+      "url": "http://api.resourcewatch.org/query/4e6fbd04-253d-4fae-929e-0dbc8e106c86?sql=select year, AVG_HIST,AVG_RCP45, AVG_RCP85 from index_4e6fbd04253d4fae929e0dbc8e106c86 order by year ASC",
+      "format": {
+        "type": "json",
+        "property": "data",
+        "parse": {"year": "date:\"%Y\""}
+      },
+      "transform": [
+        {"type": "filter","test": "datum.AVG_RCP45 > 0"},
+        {
+          "type": "formula",
+          "field": "AVG_RCP45_perc",
+          "expr": "((datum.AVG_RCP45 - 44)+ 12.45)"
+        }
+      ]
+    },
+    {
+      "name": "rcp85",
+      "url": "http://api.resourcewatch.org/query/4e6fbd04-253d-4fae-929e-0dbc8e106c86?sql=select year, AVG_HIST,AVG_RCP45, AVG_RCP85 from index_4e6fbd04253d4fae929e0dbc8e106c86 order by year ASC",
+      "format": {
+        "type": "json",
+        "property": "data",
+        "parse": {"year": "date:\"%Y\""}
+      },
+      "transform": [
+        {"type": "filter","test": "datum.AVG_RCP85 > 0"},
+        {
+          "type": "formula",
+          "field": "AVG_RCP85_perc",
+          "expr": "((datum.AVG_RCP85 - 44) + 12.45)"
+        }
+      ]
+    },
+    {
+      "name": "legend",
+      "values": [
+        {"cat": "Historical"},
+        {"cat": "Low emissions (RCP 4.5)"},
+        {"cat": "High emissions (RCP 4.5)"}
+      ]
+    }
+  ],
+  "signals": [{
+    "init": {"xval":0,"yval":0},
+    "name": "indexDate",
+    "streams": [{
+      "type": "line:mousemove", 
+      "expr": "{xval: +iscale('x', eventX()), yval: +iscale('y', eventY()), year:+utcyear(iscale('x', eventX()))}"
+    }]
+  }],
+  "scales": [
+    {
+      "name": "x",
+      "type": "time",
+      "nice": "year",
+      "range": "width",
+      "domain": {
+        "fields": [
+          {"data": "hist","field": "year"},
+          {"data": "rcp45","field": "year"},
+          {"data": "rcp85","field": "year"}
+        ]
+      }
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "range": "height",
+      "domainMax": 15,
+      "domainMin": -1,
+      "domain": {
+        "fields": [
+          {"data": "hist","field": "AVG_HIST_perc"},
+          {"data": "rcp45","field": "AVG_RCP45_perc"},
+          {"data": "rcp85","field": "AVG_RCP85_perc"}
+        ]
+      }
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "zero": false,
+      "points": true,
+      "range": ["#111","#fff000","#c34545"],
+      "domain": {"fields": [{"data": "legend","field": "cat"}]}
+    }
+  ],
+  "axes": [
+    {"type": "x","scale": "x","title": "years","ticks": 10},
+    {
+      "type": "y",
+      "scale": "y",
+      "title": "ºF",
+      "titleOffset":15,
+      "grid": true,
+      "ticks": 3,
+      "values":[-1, 0, 5, 10,15],
+      "properties": {
+        "title": {
+         "fontSize": {"value": 16},
+         "angle": 90
+       }
+      }
+    }
+  ],
+  "marks": [
+    {
+      "type": "line",
+      "from": {"data": "hist"},
+      "properties": {
+        "enter": {
+          "x": {"scale": "x","field": "year"},
+          "y": {"scale": "y","field": "AVG_HIST_perc"},
+          "height": {"scale": "y"},
+          "stroke": {"value": "#3b4f63"},
+          "strokeOpacity": {"value": 1}
+        }
+      }
+    },
+    {
+      "type": "line",
+      "from": {"data": "rcp45"},
+      "properties": {
+        "enter": {
+          "x": {"scale": "x","field": "year"},
+          "y": {"scale": "y","field": "AVG_RCP45_perc"},
+          "height": {"scale": "y"},
+          "stroke": {"value": "#fff000"},
+          "strokeOpacity": {"value": 1}
+        }
+      }
+    },
+    {
+      "type": "line",
+      "from": {"data": "rcp85"},
+      "properties": {
+        "enter": {
+          "x": {"scale": "x","field": "year"},
+          "y": {"scale": "y","field": "AVG_RCP85_perc"},
+          "height": {"scale": "y"},
+          "stroke": {"value": "#f00"},
+          "strokeOpacity": {"value": 1}
+        }
+      }
+    },
+    {
+      "type": "group",
+      "marks": [
+        {
+          "type": "text",
+          "properties": {
+            "update": {
+              "x": {"value": 10},
+              "y": {"value": 17},
+              "fill": {"value": "#3B4F63"},
+              "font": {"value": "\"Montserrat\", sans-serif"},
+              "text": {"template": "{{indexDate.year}}"},
+              "opacity": {"value": 0.8},
+              "fontSize": {"value": 11},
+              "fontWeight": {"value": "bold"}
+            }
+          }
+        },
+        {
+          "type": "text",
+          "properties": {
+            "update": {
+              "x": {"value": 11},
+              "y": {"value": 35},
+              "fill": {"value": "#3B4F63"},
+              "font": {"value": "\"Montserrat\", sans-serif"},
+              "text": {"template": "{{indexDate.yval}} ºF"},
+              "opacity": {"value": 0.8},
+              "fontSize": {"value": 11}
+            }
+          }
+        },
+        {
+    "type": "symbol",
+    "properties": {
+      "update": {
+        "x": {"scale": "x", "signal": "indexDate.xval"},
+        "y": {"scale": "y", "signal": "indexDate.yval"},
+        "stroke": {"value": "#000"}
+      }
+    } 
+  }
+      ],
+      "properties": {
+        "update": {
+          "x": {"scale": "x", "signal": "indexDate.xval"},
+          "y": {"scale": "y", "signal": "indexDate.yval"},
+          "fill": {"value": "#fff"},
+          "width": {"value": 150},
+          "height": {"value": 45},
+          "fillOpacity": {"value": 0.85}
+        }
+      }
+    }   
+    
+  ],
+   "legends": [
+    {
+      "stroke": "color",
+      "offset": 50,
+      "properties": {
+        "legend": {
+          "x": {"field": {"group": "width"},"mult": 0.1, "offset": 0},
+          "y": {"field": {"group": "height"},"mult": 0.2, "offset": -20}
+        },
+        "title": {"fontSize": {"value": 12},"dy": {"value": -2},"dx": {"value": 0}},
+        "labels": {
+          "fontSize": {"value": 10},
+          "fill": {"value": "#9BA2AA"},
+          "text": {
+           "template": "{{datum.data}}"
+          }
+        },
+        "symbols": {
+         "shape":"square",
+         "size":2
+        }
+      }
+    }
+  ]
+}

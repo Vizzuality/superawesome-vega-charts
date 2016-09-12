@@ -1,0 +1,474 @@
+{
+  "width": 600,
+  "height": 400,
+  "padding": {"top": 30,"left": 35,"right": 5,"bottom": 40},
+  "data": [
+    {
+      "name": "data",
+      "url": "http://api.resourcewatch.org/query/bd61bb68-592b-42ff-90d6-b6a5d0006101?sql=select * from index_bd61bb68592b42ff90d6b6a5d0006101 order by date asc limit 1200",
+      "format": {
+        "type": "json",
+        "property": "data"
+      }
+    },
+    {
+      "name": "rcp45",
+      "source": "data",
+      "transform": [
+        {
+                "type": "filter",
+                "test": "test(/rcp45/gi, datum.type)"
+              },
+        {
+          "type": "aggregate",
+          "groupby": ["date"],
+          "summarize": [
+            {
+              "field": "value",
+              "ops": ["min","max"],
+              "as": ["min","max"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rcp85",
+      "source": "data",
+      "transform": [
+        {
+                "type": "filter",
+                "test": "test(/rcp85/gi, datum.type)"
+              },
+        {
+          "type": "aggregate",
+          "groupby": ["date"],
+          "summarize": [
+            {
+              "field": "value",
+              "ops": ["min","max"],
+              "as": ["min","max"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "legend",
+      "values": [
+        {"cat": "Mean RCP 4.5"},
+        {"cat": "Mean RCP 8.5"}
+      ]
+        },
+    {
+      "name": "tooltip",
+      "source": "data",
+      "transform": [
+        {
+          "test": "datum.date == indexDate.date",
+          "type": "filter"
+        },
+        {
+          "expr": "datum.date > 2060 ? indexDate.xRight : indexDate.xLeft",
+          "type": "formula",
+          "field": "xTooltip"
+        },
+        {
+          "expr": "indexDate.xLeft",
+          "type": "formula",
+          "field": "xData"
+        },
+        {"type": "sort", "by": "type"}
+      ]
+    },
+    {"name": "tooltip_rcp45",
+     "source": "tooltip",
+      "transform": [
+        {
+          "test": "datum.type == 'hist_rcp45_mean'",
+          "type": "filter"
+        }]
+    },
+    {"name": "tooltip_rcp85",
+     "source": "tooltip",
+      "transform": [
+        {
+          "test": "datum.type == 'hist_rcp85_mean'",
+          "type": "filter"
+        }]
+    }
+  ],
+  "signals": [
+    {
+      "init": {"xval": 0,"yval": 0},
+      "name": "indexDate",
+      "streams": [
+        {
+          "type": "mousemove",
+          "expr": "{xLeft: +iscale('x', eventX() + 10), xRight: +iscale('x', eventX() - 130), date: +iscale('x', eventX()), yval: iscale('y', eventY())}"
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "ordinal",
+      "range": "width",
+      "domain": {"fields": [{"data": "data","field": "date"}]}
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "range": "height",
+      "zero": false,
+      "domain": {"fields": [{"data": "data","field": "value"}]}
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "zero": false,
+      "points": true,
+      "range": [
+        "#25b5cd",
+        "#efa600"
+      ],
+      "domain": {
+        "fields": [{"data": "legend","field": "cat"}],
+        "sort": true
+      }
+    }
+  ],
+  "axes": [
+    {
+      "type": "x",
+      "scale": "x",
+      "title": "years",
+      "ticks": 5,
+      "values":[1950,1970,1990,2010,2030,2050,2070,2090],
+      "properties": {
+        "title": {
+          "font": {"value": "\"Montserrat\", sans-serif"},
+          "fontSize": {"value": 12},
+          "fill": {"value": "#9BA2AA"}
+        },
+        "ticks": {"stroke": {"value": "#9BA2AA"}},
+        "labels": {
+          "font": {"value": "\"Montserrat\", sans-serif"},
+          "fill": {"value": "#9BA2AA"},
+          "fontSize": {"value": 10},
+          "align": {"value": "center"},
+          "baseline": {"value": "top"}
+        },
+        "axis": {
+          "stroke": {"value": "#E6E6E6"},
+          "opacity": {"value": 1},
+          "strokeWidth": {"value": 1.5}
+        }
+      }
+    },
+    {
+      "type": "y",
+      "scale": "y",
+      "title": "mm",
+      "titleOffset": 15,
+      "grid": false,
+      "ticks": 10,
+      "properties": {
+        "axis": {
+          "stroke": {"value": "#E6E6E6"},
+          "opacity": {"value": 1},
+          "strokeWidth": {"value": 1.5}
+        },
+        "ticks": {"stroke": {"value": "#9BA2AA"}},
+        "labels": {
+          "font": {"value": "\"Montserrat\", sans-serif"},
+          "fill": {"value": "#9BA2AA"},
+          "fontSize": {"value": 10},
+          "align": {"value": "right"},
+          "baseline": {"value": "middle"}
+        },
+        "title": {
+          "font": {"value": "\"Montserrat\", sans-serif"},
+          "fontSize": {"value": 12},
+          "y": {"value": -20},
+          "angle": 90,
+          "fill": {"value": "#9BA2AA"}
+        }
+      }
+    }
+  ],
+  "marks": [
+    {
+      "name": "datalines-rcp45",
+      "type": "group",
+      "marks": [
+        { 
+          "type": "area",
+          "from": {"data": "rcp45"},
+          "properties": {
+            "enter": {
+              "interpolate": {
+                "value": "linear"
+              },
+              "x": {
+                "field": "date",
+                "scale": "x"
+              },
+              "y": {
+                "field": "min",
+                "scale": "y"
+              },
+              "y2": {
+                "field": "max",
+                "scale": "y"
+              },
+              "fill": {
+                "value":"#25b5cd"
+              },
+              "fillOpacity": {"value": 0.4}
+            }
+          }
+        },
+        {
+          "type": "line",
+          "from": {
+            "data": "data",
+            "transform": [
+              {
+                "type": "filter",
+                "test": "datum.type == 'hist_rcp45_mean'"
+              }
+            ]
+          },
+          "properties": {
+            "enter": {
+              "x": {"scale": "x","field": "date"},
+              "y": {"scale": "y","field": "value"},
+              "height": {"scale": "y"},
+              "stroke": {"value": "#25b5cd"},
+              "strokeOpacity": {"value": 1},
+              "strokeWidth": {"value": 1.5}
+            }
+          }
+        }
+       
+      ]
+    },
+    {
+      "name": "datalines-rcp85",
+      "type": "group",
+      "marks": [
+        { 
+          "type": "area",
+          "from": {"data": "rcp85"},
+          "properties": {
+            "enter": {
+              "interpolate": {
+                "value": "linear"
+              },
+              "x": {
+                "field": "date",
+                "scale": "x"
+              },
+              "y": {
+                "field": "min",
+                "scale": "y"
+              },
+              "y2": {
+                "field": "max",
+                "scale": "y"
+              },
+              "fill": {
+                "value":"#efa600"
+              },
+              "fillOpacity": {"value": 0.4}
+            }
+          }
+        },
+        {
+          "type": "line",
+          "from": {
+            "data": "data",
+            "transform": [
+              {
+                "type": "filter",
+                "test": "datum.type == 'hist_rcp85_mean'"
+              }
+            ]
+          },
+          "properties": {
+            "enter": {
+              "x": {"scale": "x","field": "date"},
+              "y": {"scale": "y","field": "value"},
+              "height": {"scale": "y"},
+              "stroke": {"value": "#efa600"},
+              "strokeOpacity": {"value": 1},
+              "strokeWidth": {"value": 1.5}
+            }
+          }
+        }
+        
+      ]
+    },
+    {
+      "name": "tooltip_rcp45",
+      "type": "group",
+      "from": {"data": "tooltip_rcp45"},
+      "marks": [
+        {
+          "type": "text",
+          "properties": {
+            "update": {
+              "x": {"value": 10},
+              "y": {"value": 17},
+              "fill": {"value": "#3B4F63"},
+              "font": {"value": "\"Montserrat\", sans-serif"},
+              "text": {
+                "template": "{{indexDate.xLeft}}"
+              },
+              "opacity": {"value": 0.8},
+              "fontSize": {"value": 11},
+              "fontWeight": {"value": "bold"}
+            }
+          }
+        },
+        { "name":"mean",
+          "type": "text",
+          "properties": {
+            "update": {
+              "x": {"value": 11},
+              "y": {"value": 35},
+              "fill": {"value": "#3B4F63"},
+              "font": {"value": "\"Montserrat\", sans-serif"},
+              "text": {
+                "template": "RCP 4.5: {{parent.value|number:'.2f'}} mm"
+              },
+              "opacity": {"value": 0.8},
+              "fontSize": {"value": 11}
+            }
+          }
+        }
+      ],
+      "properties": {
+        "update": {
+          "x": {
+            "scale": "x",
+            "field": "xTooltip",
+            "offset": 0
+          },
+          "y": {"scale": "y","signal": "indexDate.yval", "offset": -10},
+          "fill": {"value": "#fff"},
+          "width": {"value": 130},
+          "height": {"value": 55},
+          "fillOpacity": {"value": 0.85}
+        }
+      }
+    },
+    {
+      "name": "tooltip_rcp85",
+      "type": "group",
+      "from": {"data": "tooltip_rcp85"},
+      "marks": [
+        { "name":"mean",
+          "type": "text",
+          "properties": {
+            "update": {
+              "x": {"value": 11},
+              "y": {"value": 50},
+              "fill": {"value": "#3B4F63"},
+              "font": {"value": "\"Montserrat\", sans-serif"},
+              "text": {
+                "template": "RCP 8.5: {{parent.value|number:'.2f'}} mm"
+              },
+              "opacity": {"value": 0.8},
+              "fontSize": {"value": 11}
+            }
+          }
+        }
+      ],
+      "properties": {
+        "update": {
+          "x": {
+            "scale": "x",
+            "field": "xTooltip",
+            "offset": 0
+          },
+          "y": {"scale": "y","signal": "indexDate.yval", "offset": -10},
+
+          "width": {"value": 150},
+          "height": {"value": 45},
+          "fillOpacity": {"value": 1}
+        }
+      }
+    },
+    {
+      "from": {"data": "tooltip_rcp45"},
+      "size": 4,
+      "ease":"in-out",
+      "type": "rule",
+      "properties": {
+        "update": {
+          "x": {"field": "date","scale": "x"},
+          "y": {"value": 0},
+          "y2":{"field": {"group": "height"}},
+          "stroke": {"value": "#000000"},
+          
+          "strokeWidth": {"value": 2},
+          "opacity": {"value": 0.2}
+        }
+      }
+    },
+    {
+      "from": {"data": "tooltip",
+        "transform": [
+        {
+          "test": "datum.type == 'hist_rcp45_mean' || datum.type == 'hist_rcp85_mean'",
+          "type": "filter"
+        }]
+      },
+      "size": 4,
+      "ease":"in-out",
+      "type": "symbol",
+      "properties": {
+        "update": {
+          "x": {"field": "date","scale": "x"},
+          "y": {"field": "value","scale": "y"},
+          "fill": {"value": "#c15467"},
+          "size": {"value": 20}
+        }
+      }
+    }
+  ],
+  "legends": [
+    {
+      "fill": "color",
+      "offset": 50,
+      "properties": {
+        "legend": {
+          "x": {
+            "field": {"group": "width"},
+            "mult": 0.05,
+            "offset": 0
+          },
+          "y": {
+            "field": {"group": "height"},
+            "mult": 0.05,
+            "offset": -10
+          }
+        },
+        "title": {
+          "fontSize": {"value": 12},
+          "dy": {"value": -2},
+          "dx": {"value": 0}
+        },
+        "labels": {
+          "fontSize": {"value": 10},
+          "fill": {"value": "#9BA2AA"},
+          "text": {"template": "{{datum.data}}"}
+        },
+        "symbols": {"shape": {"value": "square"},"size": {"value": 30},"strokeOpacity":{"value": 0}}
+      }
+    }
+  ]
+}
