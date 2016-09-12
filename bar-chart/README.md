@@ -1,1 +1,1 @@
-# Line charts
+# Bar charts
