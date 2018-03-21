@@ -1,0 +1,239 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v3.0.json",
+  "autosize": {"type": "pad", "resize": true, "contains":"padding"},
+  "data": [
+    {
+      "url": "https://prep-admin.carto.com/api/v2/sql?q=SELECT year, avg_hist,avg_rcp45, avg_rcp85, min_hist, min_rcp45, min_rcp85, max_hist, max_rcp45, max_rcp85 FROM temp_graph_1 order by year asc",
+      "name": "table",
+      "format": {
+        "type": "json",
+        "property": "rows"
+      },
+      "transform": [
+        {
+          "type": "fold",
+          "fields": [
+            "avg_hist",
+            "avg_rcp45",
+            "avg_rcp85"
+          ],
+          "as": [
+            "key",
+            "y"
+          ]
+        },
+        {
+          "type": "filter",
+          "expr": "datum.y!=null"
+        },
+        {
+          "type": "filter",
+          "expr": "datum.y!=0"
+        },
+        {"type": "formula", "as": "model", "expr": "substring(datum.key,4)"},
+        {"type": "formula", "as": "op", "expr": "substring(datum.key,0,3)"},
+        {"type": "formula", "as": "min", "expr": "datum.model==='hist' ? datum.min_hist : (datum.model==='rcp45' ? datum.min_rcp45 : datum.min_rcp85) "},
+        {"type": "formula", "as": "max", "expr": "datum.model==='hist' ? datum.max_hist : (datum.model==='rcp45' ? datum.max_rcp45 : datum.max_rcp85) "},
+        {
+        "expr": "((datum.y - 44) + 12.45)",
+        "type": "formula",
+        "as": "y"
+        },
+        {
+        "expr": "((datum.min - 44)+ 12.45)",
+        "type": "formula",
+        "as": "min"
+        },
+        {
+        "expr": "((datum.max - 44)+ 12.45)",
+        "type": "formula",
+        "as": "max"
+        }
+      ]
+    },
+    {
+      "name": "legend",
+      "values": [
+        {
+          "cat": "Historical"
+        },
+        {
+          "cat": "Low emissions (RCP 4.5)"
+        },
+        {
+          "cat": "High emissions (RCP 4.5)"
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "range": "width",
+      "nice": false,
+      "zero": false,
+      "domain": {
+        "data": "table",
+        "field": "year"
+      }
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "range": "height",
+      "nice": true,
+      "zero": true,
+      "domain": {
+        "fields": [
+          {
+            "data": "table",
+            "field": "y"
+          },
+          {
+            "data": "table",
+            "field": "min"
+          },
+          {
+            "data": "table",
+            "field": "max"
+          }
+        ]
+      }
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "range": "category",
+      "domain": {
+        "data": "table",
+        "field": "model"
+      }
+    }
+  ],
+  "axes": [
+    {
+      "orient": "bottom",
+      "scale": "x"
+    },
+    {
+      "orient": "left",
+      "scale": "y",
+      "title":"ºF",
+    "encode": {
+      "title": {
+        "update": {
+          "dx": {"value": 0},
+          "dy": {"value": 0},
+          "x": {"value": 0},
+          "y": {"value": -10},
+          "align": {"value": "right"},
+          "baseline": {"value": "bottom"},
+          "angle": {"value": 0},
+          "fontSize": {"value": 12}
+        }
+      }
+    }
+    }
+  ],
+  "marks": [
+    {
+      "type": "group",
+      "from": {
+        "facet": {
+          "name": "series",
+          "data": "table",
+          "groupby": "model"
+        }
+      },
+      "marks": [
+        
+        {
+          "type": "area",
+          "from": {
+            "data": "series"
+          },
+          "encode": {
+            "update": {
+              "interpolate": {"value": "monotone"},
+              "x": {
+                "scale": "x",
+                "field": "year"
+              },
+              "y": {
+                "scale": "y",
+                "field": "max"
+              },
+              "y2": {
+                "scale": "y",
+                "field": "min"
+              },
+              "fill": {
+                "scale": "color",
+                "field": "model"
+              },
+              "fillOpacity": {
+                "value": 0.5
+              }
+            },
+            "hover": {
+              "fillOpacity": {
+                "value": 0.5
+              }
+            }
+          }
+        },
+        {
+          "type": "line",
+          "from": {
+            "data": "series"
+          },
+          "encode": {
+            "enter": {
+              "x": {
+                "scale": "x",
+                "field": "year"
+              },
+              "y": {
+                "scale": "y",
+                "field": "y"
+              },
+              "stroke": {
+                "scale": "color",
+                "field": "model"
+              },
+              "strokeWidth": {
+                "value": 2
+              }
+            },
+            "update": {
+              "fillOpacity": {
+                "value": 1
+              }
+            },
+            "hover": {
+              "fillOpacity": {
+                "value": 0.5
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "legends": [
+  {
+    "stroke": "color",
+    "orient":"top-left",
+    "offset":{"signal":"width<200? 0:10"},
+    "encode": {
+      "legend": {
+        "update": {
+          "stroke": {"value": "transparent"},
+          "strokeWidth": {"value": 1.5}
+        }
+      }
+    }
+  }
+]
+}

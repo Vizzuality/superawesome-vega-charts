@@ -1,0 +1,1300 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "width": 600,
+  "height": 600,
+  "autosize": {
+    "type": "pad",
+    "resize": true,
+    "contains": "padding"
+  },
+  "config": {
+    "text": {
+      "font": "Zilla Slab"
+    }
+  },
+  "signals": [
+    {
+      "name": "minSize",
+      "value": "width",
+      "update": "width >= height? height : width"
+    }
+  ],
+  "data": [
+    {
+      "name": "data",
+      "values": [
+        {
+          "label": "American Library Association\u2019s Digital Literacy definition",
+          "subcategory": "Design",
+          "category": "Write",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "Common Core State Standards and Next Generation Science Standards",
+          "subcategory": "Design",
+          "category": "Write",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "International Society for Technology in Education\u2019s Standards for Students",
+          "subcategory": "Design",
+          "category": "Write",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "National Assessment of Educational Progress Engineering and Technology\nLiteracy Framework",
+          "subcategory": "Design",
+          "category": "Write",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "European Union\u2019s Digital Competencies Framework",
+          "subcategory": "Design",
+          "category": "Write",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "UNESCO Global Media and Information Literacy Framework",
+          "subcategory": "Design",
+          "category": "Write",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "P21's Framework for 21st Century Learning",
+          "subcategory": "Design",
+          "category": "Write",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "United States Department of Education\u2019s Employability Skills Framework",
+          "subcategory": "Design",
+          "category": "Write",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "American Library Association\u2019s Digital Literacy definition",
+          "subcategory": "Code",
+          "category": "Write",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "Common Core State Standards and Next Generation Science Standards",
+          "subcategory": "Code",
+          "category": "Write",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "International Society for Technology in Education\u2019s Standards for Students",
+          "subcategory": "Code",
+          "category": "Write",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "National Assessment of Educational Progress Engineering and Technology\nLiteracy Framework",
+          "subcategory": "Code",
+          "category": "Write",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "European Union\u2019s Digital Competencies Framework",
+          "subcategory": "Code",
+          "category": "Write",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "UNESCO Global Media and Information Literacy Framework",
+          "subcategory": "Code",
+          "category": "Write",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "P21's Framework for 21st Century Learning",
+          "subcategory": "Code",
+          "category": "Write",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "United States Department of Education\u2019s Employability Skills Framework",
+          "subcategory": "Code",
+          "category": "Write",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "American Library Association\u2019s Digital Literacy definition",
+          "subcategory": "Compose",
+          "category": "Write",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "Common Core State Standards and Next Generation Science Standards",
+          "subcategory": "Compose",
+          "category": "Write",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "International Society for Technology in Education\u2019s Standards for Students",
+          "subcategory": "Compose",
+          "category": "Write",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "National Assessment of Educational Progress Engineering and Technology\nLiteracy Framework",
+          "subcategory": "Compose",
+          "category": "Write",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "European Union\u2019s Digital Competencies Framework",
+          "subcategory": "Compose",
+          "category": "Write",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "UNESCO Global Media and Information Literacy Framework",
+          "subcategory": "Compose",
+          "category": "Write",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "P21's Framework for 21st Century Learning",
+          "subcategory": "Compose",
+          "category": "Write",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "United States Department of Education\u2019s Employability Skills Framework",
+          "subcategory": "Compose",
+          "category": "Write",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "American Library Association\u2019s Digital Literacy definition",
+          "subcategory": "Revise",
+          "category": "Write",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "Common Core State Standards and Next Generation Science Standards",
+          "subcategory": "Revise",
+          "category": "Write",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "International Society for Technology in Education\u2019s Standards for Students",
+          "subcategory": "Revise",
+          "category": "Write",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "National Assessment of Educational Progress Engineering and Technology\nLiteracy Framework",
+          "subcategory": "Revise",
+          "category": "Write",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "European Union\u2019s Digital Competencies Framework",
+          "subcategory": "Revise",
+          "category": "Write",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "UNESCO Global Media and Information Literacy Framework",
+          "subcategory": "Revise",
+          "category": "Write",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "P21's Framework for 21st Century Learning",
+          "subcategory": "Revise",
+          "category": "Write",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "United States Department of Education\u2019s Employability Skills Framework",
+          "subcategory": "Revise",
+          "category": "Write",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "American Library Association\u2019s Digital Literacy definition",
+          "subcategory": "Remix",
+          "category": "Write",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "Common Core State Standards and Next Generation Science Standards",
+          "subcategory": "Remix",
+          "category": "Write",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "International Society for Technology in Education\u2019s Standards for Students",
+          "subcategory": "Remix",
+          "category": "Write",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "National Assessment of Educational Progress Engineering and Technology\nLiteracy Framework",
+          "subcategory": "Remix",
+          "category": "Write",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "European Union\u2019s Digital Competencies Framework",
+          "subcategory": "Remix",
+          "category": "Write",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "UNESCO Global Media and Information Literacy Framework",
+          "subcategory": "Remix",
+          "category": "Write",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "P21's Framework for 21st Century Learning",
+          "subcategory": "Remix",
+          "category": "Write",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "United States Department of Education\u2019s Employability Skills Framework",
+          "subcategory": "Remix",
+          "category": "Write",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "American Library Association\u2019s Digital Literacy definition",
+          "subcategory": "Search",
+          "category": "Read",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "Common Core State Standards and Next Generation Science Standards",
+          "subcategory": "Search",
+          "category": "Read",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "International Society for Technology in Education\u2019s Standards for Students",
+          "subcategory": "Search",
+          "category": "Read",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "National Assessment of Educational Progress Engineering and Technology\nLiteracy Framework",
+          "subcategory": "Search",
+          "category": "Read",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "European Union\u2019s Digital Competencies Framework",
+          "subcategory": "Search",
+          "category": "Read",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "UNESCO Global Media and Information Literacy Framework",
+          "subcategory": "Search",
+          "category": "Read",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "P21's Framework for 21st Century Learning",
+          "subcategory": "Search",
+          "category": "Read",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "United States Department of Education\u2019s Employability Skills Framework",
+          "subcategory": "Search",
+          "category": "Read",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "American Library Association\u2019s Digital Literacy definition",
+          "subcategory": "Navigate",
+          "category": "Read",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "Common Core State Standards and Next Generation Science Standards",
+          "subcategory": "Navigate",
+          "category": "Read",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "International Society for Technology in Education\u2019s Standards for Students",
+          "subcategory": "Navigate",
+          "category": "Read",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "National Assessment of Educational Progress Engineering and Technology\nLiteracy Framework",
+          "subcategory": "Navigate",
+          "category": "Read",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "European Union\u2019s Digital Competencies Framework",
+          "subcategory": "Navigate",
+          "category": "Read",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "UNESCO Global Media and Information Literacy Framework",
+          "subcategory": "Navigate",
+          "category": "Read",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "P21's Framework for 21st Century Learning",
+          "subcategory": "Navigate",
+          "category": "Read",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "United States Department of Education\u2019s Employability Skills Framework",
+          "subcategory": "Navigate",
+          "category": "Read",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "American Library Association\u2019s Digital Literacy definition",
+          "subcategory": "Synthesize",
+          "category": "Read",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "Common Core State Standards and Next Generation Science Standards",
+          "subcategory": "Synthesize",
+          "category": "Read",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "International Society for Technology in Education\u2019s Standards for Students",
+          "subcategory": "Synthesize",
+          "category": "Read",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "National Assessment of Educational Progress Engineering and Technology\nLiteracy Framework",
+          "subcategory": "Synthesize",
+          "category": "Read",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "European Union\u2019s Digital Competencies Framework",
+          "subcategory": "Synthesize",
+          "category": "Read",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "UNESCO Global Media and Information Literacy Framework",
+          "subcategory": "Synthesize",
+          "category": "Read",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "P21's Framework for 21st Century Learning",
+          "subcategory": "Synthesize",
+          "category": "Read",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "United States Department of Education\u2019s Employability Skills Framework",
+          "subcategory": "Synthesize",
+          "category": "Read",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "American Library Association\u2019s Digital Literacy definition",
+          "subcategory": "Evaluate",
+          "category": "Read",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "Common Core State Standards and Next Generation Science Standards",
+          "subcategory": "Evaluate",
+          "category": "Read",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "International Society for Technology in Education\u2019s Standards for Students",
+          "subcategory": "Evaluate",
+          "category": "Read",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "National Assessment of Educational Progress Engineering and Technology\nLiteracy Framework",
+          "subcategory": "Evaluate",
+          "category": "Read",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "European Union\u2019s Digital Competencies Framework",
+          "subcategory": "Evaluate",
+          "category": "Read",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "UNESCO Global Media and Information Literacy Framework",
+          "subcategory": "Evaluate",
+          "category": "Read",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "P21's Framework for 21st Century Learning",
+          "subcategory": "Evaluate",
+          "category": "Read",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "United States Department of Education\u2019s Employability Skills Framework",
+          "subcategory": "Evaluate",
+          "category": "Read",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "American Library Association\u2019s Digital Literacy definition",
+          "subcategory": "Connect",
+          "category": "Participate",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "Common Core State Standards and Next Generation Science Standards",
+          "subcategory": "Connect",
+          "category": "Participate",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "International Society for Technology in Education\u2019s Standards for Students",
+          "subcategory": "Connect",
+          "category": "Participate",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "National Assessment of Educational Progress Engineering and Technology\nLiteracy Framework",
+          "subcategory": "Connect",
+          "category": "Participate",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "European Union\u2019s Digital Competencies Framework",
+          "subcategory": "Connect",
+          "category": "Participate",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "UNESCO Global Media and Information Literacy Framework",
+          "subcategory": "Connect",
+          "category": "Participate",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "P21's Framework for 21st Century Learning",
+          "subcategory": "Connect",
+          "category": "Participate",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "United States Department of Education\u2019s Employability Skills Framework",
+          "subcategory": "Connect",
+          "category": "Participate",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "American Library Association\u2019s Digital Literacy definition",
+          "subcategory": "Protect",
+          "category": "Participate",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "Common Core State Standards and Next Generation Science Standards",
+          "subcategory": "Protect",
+          "category": "Participate",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "International Society for Technology in Education\u2019s Standards for Students",
+          "subcategory": "Protect",
+          "category": "Participate",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "National Assessment of Educational Progress Engineering and Technology\nLiteracy Framework",
+          "subcategory": "Protect",
+          "category": "Participate",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "European Union\u2019s Digital Competencies Framework",
+          "subcategory": "Protect",
+          "category": "Participate",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "UNESCO Global Media and Information Literacy Framework",
+          "subcategory": "Protect",
+          "category": "Participate",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "P21's Framework for 21st Century Learning",
+          "subcategory": "Protect",
+          "category": "Participate",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "United States Department of Education\u2019s Employability Skills Framework",
+          "subcategory": "Protect",
+          "category": "Participate",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "American Library Association\u2019s Digital Literacy definition",
+          "subcategory": "Open Practice",
+          "category": "Participate",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "Common Core State Standards and Next Generation Science Standards",
+          "subcategory": "Open Practice",
+          "category": "Participate",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "International Society for Technology in Education\u2019s Standards for Students",
+          "subcategory": "Open Practice",
+          "category": "Participate",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "National Assessment of Educational Progress Engineering and Technology\nLiteracy Framework",
+          "subcategory": "Open Practice",
+          "category": "Participate",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "European Union\u2019s Digital Competencies Framework",
+          "subcategory": "Open Practice",
+          "category": "Participate",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "UNESCO Global Media and Information Literacy Framework",
+          "subcategory": "Open Practice",
+          "category": "Participate",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "P21's Framework for 21st Century Learning",
+          "subcategory": "Open Practice",
+          "category": "Participate",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "United States Department of Education\u2019s Employability Skills Framework",
+          "subcategory": "Open Practice",
+          "category": "Participate",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "American Library Association\u2019s Digital Literacy definition",
+          "subcategory": "Contribute",
+          "category": "Participate",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "Common Core State Standards and Next Generation Science Standards",
+          "subcategory": "Contribute",
+          "category": "Participate",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "International Society for Technology in Education\u2019s Standards for Students",
+          "subcategory": "Contribute",
+          "category": "Participate",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "National Assessment of Educational Progress Engineering and Technology\nLiteracy Framework",
+          "subcategory": "Contribute",
+          "category": "Participate",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "European Union\u2019s Digital Competencies Framework",
+          "subcategory": "Contribute",
+          "category": "Participate",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "UNESCO Global Media and Information Literacy Framework",
+          "subcategory": "Contribute",
+          "category": "Participate",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "P21's Framework for 21st Century Learning",
+          "subcategory": "Contribute",
+          "category": "Participate",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "United States Department of Education\u2019s Employability Skills Framework",
+          "subcategory": "Contribute",
+          "category": "Participate",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "American Library Association\u2019s Digital Literacy definition",
+          "subcategory": "Share",
+          "category": "Participate",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "Common Core State Standards and Next Generation Science Standards",
+          "subcategory": "Share",
+          "category": "Participate",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "International Society for Technology in Education\u2019s Standards for Students",
+          "subcategory": "Share",
+          "category": "Participate",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "National Assessment of Educational Progress Engineering and Technology\nLiteracy Framework",
+          "subcategory": "Share",
+          "category": "Participate",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "European Union\u2019s Digital Competencies Framework",
+          "subcategory": "Share",
+          "category": "Participate",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "UNESCO Global Media and Information Literacy Framework",
+          "subcategory": "Share",
+          "category": "Participate",
+          "value": 0,
+          "size": 1
+        },
+        {
+          "label": "P21's Framework for 21st Century Learning",
+          "subcategory": "Share",
+          "category": "Participate",
+          "value": 1,
+          "size": 1
+        },
+        {
+          "label": "United States Department of Education\u2019s Employability Skills Framework",
+          "subcategory": "Share",
+          "category": "Participate",
+          "value": 1,
+          "size": 1
+        }
+      ],
+      "format": {
+        "parse": {
+        "size": "number",
+        "value": "number"
+      }
+      },
+      
+      "transform": [
+        {
+          "type": "stack",
+          "groupby": [
+            "label"
+          ],
+          "field": "size",
+          "sort": {
+            "field": [
+              "category",
+              "subcategory"
+            ],
+            "order": [
+              "descending",
+              "ascending"
+            ]
+          },
+          "as": [
+            "r0",
+            "r1"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "summary",
+      "source": "data",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": [
+            "label"
+          ]
+        },
+        {
+          "type": "pie",
+          "field": "count",
+          "startAngle": {
+            "signal": "0"
+          },
+          "endAngle": {
+            "signal": "-4.1"
+          },
+          "sort": true
+        },
+        {
+          "type": "formula",
+          "as": "midAngle",
+          "expr": "(datum.startAngle + datum.endAngle)/2"
+        },
+        {
+          "type": "formula",
+          "as": "baseline",
+          "expr": "datum.midAngle >(-PI/2)? 'bottom':'top' "
+        },
+        {
+          "type": "formula",
+          "as": "align",
+          "expr": "datum.midAngle >(-PI) ? 'right':'left'"
+        },
+        {
+          "type": "formula",
+          "as": "agg",
+          "expr": "[{label: datum.label, align: datum.align,baseline: datum.baseline, endAngle: datum.endAngle,startAngle: datum.startAngle, midAngle: datum.midAngle}]"
+        }
+      ]
+    },
+    {
+      "name": "summaryCat",
+      "source": "data",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": [
+            "subcategory",
+            "category"
+          ],
+          "fields": [
+            "r0",
+            "r1"
+          ],
+          "ops": [
+            "min",
+            "max"
+          ],
+          "as": [
+            "r0",
+            "r1"
+          ]
+        },
+        {
+          "type": "formula",
+          "as": "rm",
+          "expr": "((datum.r1-datum.r0)/2) + datum.r0 + 5.8"
+        }
+      ]
+    },
+    {
+      "name": "sumCat",
+      "source": "summaryCat",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": [
+            "category"
+          ],
+          "fields": [
+            "rm",
+            "r0",
+            "r1"
+          ],
+          "ops": [
+            "max",
+            "min",
+            "max"
+          ],
+          "as": [
+            "rm",
+            "r0",
+            "r1"
+          ]
+        },
+        {
+          "type": "formula",
+          "as": "r0",
+          "expr": " datum.r0 + 5.8"
+        },
+        {
+          "type": "formula",
+          "as": "r1",
+          "expr": " datum.r1 + 5.8"
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "r",
+      "type": "linear",
+      "domain": {
+        "data": "data",
+        "field": "r1"
+      },
+      "range": [
+        {
+          "signal": "minSize/2 - minSize/2.8"
+        },
+        {
+          "signal": "minSize/2"
+        }
+      ]
+    },
+    {
+      "name": "r-inverted",
+      "type": "linear",
+      "domain": {
+        "data": "data",
+        "field": "r1"
+      },
+      "range": [
+        {
+          "signal": "minSize/2"
+        },
+        {
+          "signal": "minSize/2 - minSize/2.8"
+        }
+      ]
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "range": [
+        "#6DD8AF",
+        "#000000",
+        "#6DD8AF"
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "name": "pies",
+      "type": "group",
+      "from": {
+        "facet": {
+          "name": "facet",
+          "data": "data",
+          "groupby": "subcategory"
+        }
+      },
+      "data": [
+        {
+          "name": "MyData",
+          "source": "facet",
+          "transform": [
+            {
+              "type": "pie",
+              "field": "size",
+              "startAngle": {
+                "signal": "0"
+              },
+              "endAngle": {
+                "signal": "-4.1"
+              },
+              "sort": true
+            }
+          ]
+        }
+      ],
+      "marks": [
+        {
+          "name": "MyArc",
+          "type": "arc",
+          "from": {
+            "data": "MyData"
+          },
+          "encode": {
+            "enter": {
+              "fill": [
+                {
+                  "test": "datum.value==1",
+                  "scale": "color",
+                  "field": "category"
+                },
+                {
+                  "value": "transparent"
+                }
+              ],
+              "stroke": {
+                "scale": "color",
+                "field": "category"
+              },
+              "strokeWidth": {
+                "value": 0.15
+              },
+              "x": {
+                "signal": "minSize / 2"
+              },
+              "y": {
+                "signal": "minSize / 2"
+              }
+            },
+            "update": {
+              "opacity": {
+                "value": 1
+              },
+              "startAngle": {
+                "field": "startAngle"
+              },
+              "endAngle": {
+                "field": "endAngle"
+              },
+              "padAngle": {
+                "value": 0.038
+              },
+              "innerRadius": {
+                "scale": "r",
+                "field": "r0",
+                "offset": 7
+              },
+              "outerRadius": {
+                "scale": "r",
+                "field": "r1"
+              },
+              "cornerRadius": {
+                "value": 0
+              }
+            },
+            "hover": {
+              "opacity": {
+                "value": 0.6
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "labels",
+      "type": "group",
+      "from": {
+        "facet": {
+          "name": "facetL",
+          "data": "summary",
+          "field": "agg"
+        }
+      },
+      "encode": {
+              "enter": {
+                 "x": {
+                  "signal": "minSize",
+                  "mult": 0.5
+                },
+                "y": {
+                  "signal": "minSize",
+                  "mult": 0.5
+                }
+              }
+            },
+        "data": [
+          {
+            "name": "Mylabel",
+            "source": "facetL",
+            "transform": [
+              {
+                "type": "countpattern",
+                "field": "label",
+                "pattern": "(\\S+ *\\S+ *\\S+ *)"
+              },
+              {
+                "type": "formula",
+                "as": "lengh",
+                "expr": "length(datum.text)"
+              },
+              {
+                "type": "formula",
+                "as": "parent",
+                "expr": "parent"
+              },
+              {
+  "type": "window",
+  "ops": ["dense_rank"],
+  "fields": [ null],
+  "as": ["rank"]
+},
+{
+  "type": "joinaggregate",
+  "fields": ["text"],
+  "ops": ["count"],
+  "as": ["count"]
+},
+              {
+                "type": "formula",
+                "as": "offset",
+                "expr": "minSize> 400 ? 15 * (datum.rank-1) : 11 * (datum.rank-1)"
+              }
+            ]
+          }
+        ],
+        "marks": [
+          {
+            "name": "label",
+            "interactive": false,
+            "type": "text",
+            "from": {
+              "data": "Mylabel"
+            },
+            
+            "encode": {
+              "enter": {
+                 "x": {
+                  "field":"x"
+                },
+                "y": {
+                  "field":"y"
+                },
+                "dy": {
+                  "field":"offset"
+                },
+                "radius": {
+                  "signal": "minSize / 2",
+                  "offset": 15
+                },
+                "fontSize": {
+              "signal": "minSize> 400 ? 12 : 8"
+            },
+                "theta": {
+                  "signal": "(datum.parent.startAngle + datum.parent.endAngle)/2"
+                },
+                "align": {
+                  "field": "parent.align"
+                },
+                "baseline": {
+                  "field": "parent.baseline"
+                },
+                "text": {
+                  "field": "text"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "skills",
+        "interactive": false,
+        "type": "text",
+        "from": {
+          "data": "summaryCat"
+        },
+        "encode": {
+          "enter": {
+            "x": {
+              "signal": "minSize/2 + 7"
+            },
+            "y": {
+              "scale": "r-inverted",
+              "field": "rm"
+            },
+            "fill": {
+              "value": "#000"
+            },
+            "fontSize": {
+              "signal": "minSize> 400 ? 12 : 8"
+            },
+            "align": {
+              "value": "left"
+            },
+            "baseline": {
+              "value": "middle"
+            },
+            "text": {
+              "field": "subcategory"
+            }
+          }
+        }
+      },
+      {
+        "name": "legend",
+        "interactive": false,
+        "from": {
+          "data": "sumCat"
+        },
+        "type": "rect",
+        "encode": {
+          "enter": {
+            "x": {
+              "signal": "minSize> 400 ? 2*minSize/2.95 : 2*minSize/2.70"
+            },
+            "y": {
+              "scale": "r-inverted",
+              "field": "r0",
+              "offset": -5
+            },
+            "width": {
+              "value": 10
+            },
+            "y2": {
+              "scale": "r-inverted",
+              "field": "r1"
+            },
+            "fill": {
+              "scale": "color",
+              "field": "category"
+            }
+          }
+        }
+      },
+      {
+        "name": "cat",
+        "interactive": false,
+        "type": "text",
+        "from": {
+          "data": "sumCat"
+        },
+        "encode": {
+          "enter": {
+            "x": {
+              "signal": "minSize> 400 ? 2*minSize/2.8 : 2*minSize/2.55"
+            },
+            "y": {
+              "scale": "r-inverted",
+              "field": "rm"
+            },
+            "fill": {
+              "value": "#000"
+            },
+            "align": {
+              "value": "left"
+            },
+            "baseline": {
+              "value": "middle"
+            },
+            "text": {
+              "field": "category"
+            },
+            "fontWeight": {
+              "value": "bold"
+            }
+          }
+        }
+      }
+    ]
+  }

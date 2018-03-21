@@ -1,0 +1,779 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "width": 300,
+  "height": 300,
+  "data": [
+    {
+      "name": "table",
+      "format": {
+        "parse": {
+          "x": "date"
+        }
+      },
+      "values": [
+        {
+          "x": "1971-01-01T00:00:00.000Z",
+          "q75": 35.6,
+          "q50": 33.881,
+          "q25": 32.6
+        },
+        {
+          "x": "1981-01-01T00:00:00.000Z",
+          "q75": 35,
+          "q50": 32.9381,
+          "q25": 31
+        },
+        {
+          "x": "1991-01-01T00:00:00.000Z",
+          "q75": 34.9,
+          "q50": 33.1476,
+          "q25": 31.1
+        },
+        {
+          "x": "2001-01-01T00:00:00.000Z",
+          "q75": 33.1,
+          "q50": 31.9571,
+          "q25": 31.1
+        },
+        {
+          "x": "2011-01-01T00:00:00.000Z",
+          "q75": 33.6,
+          "q50": 32.4238,
+          "q25": 30.5
+        },
+        {
+          "x": "2021-01-01T00:00:00.000Z",
+          "q75": 33.4,
+          "q50": 31.7333,
+          "q25": 29.7
+        },
+        {
+          "x": "2031-01-01T00:00:00.000Z",
+          "q75": 34.2,
+          "q50": 31.3048,
+          "q25": 27
+        },
+        {
+          "x": "2041-01-01T00:00:00.000Z",
+          "q75": 33.2,
+          "q50": 31.2857,
+          "q25": 28.5
+        },
+        {
+          "x": "2051-01-01T00:00:00.000Z",
+          "q75": 33.2,
+          "q50": 30.9143,
+          "q25": 28.7
+        },
+        {
+          "x": "2061-01-01T00:00:00.000Z",
+          "q75": 32.9,
+          "q50": 31.2619,
+          "q25": 29.7
+        },
+        {
+          "x": "2071-01-01T00:00:00.000Z",
+          "q75": 31.5,
+          "q50": 30.7238,
+          "q25": 28.5
+        },
+        {
+          "x": "2081-01-01T00:00:00.000Z",
+          "q75": 33,
+          "q50": 31.1,
+          "q25": 28.8
+        }
+      ],
+      "transform": [
+        {
+          "type": "formula",
+          "as": "q25",
+          "expr": "units.type =='factor' ? round(units.value*datum.q25,2) : ( datum.q25-units.value)"
+        },
+        {
+          "type": "formula",
+          "as": "q50",
+          "expr": "units.type =='factor' ? round(units.value*datum.q50,2) : (datum.q50-units.value)"
+        },
+        {
+          "type": "formula",
+          "as": "q75",
+          "expr": "units.type =='factor' ? round(units.value*datum.q75,2) : (datum.q75-units.value)"
+        }
+      ]
+    },
+    {
+      "name": "range1Data",
+      "source": "table",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "year(datum.x) >= utcyear(range1.start) && year(datum.x) <= utcyear(range1.end)"
+        },
+        {
+          "type": "formula",
+          "as": "date_end",
+          "expr": "range1.end"
+        },
+        {
+          "type": "formula",
+          "as": "date_start",
+          "expr": "range1.start"
+        },
+        {
+          "type": "aggregate",
+          "fields": [
+            "q25",
+            "q75",
+            "x",
+            "date_end",
+            "date_start"
+          ],
+          "ops": [
+            "min",
+            "max",
+            "min",
+            "min",
+            "min"
+          ],
+          "as": [
+            "q25",
+            "q75",
+            "x",
+            "date_end",
+            "date_start"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "range2Data",
+      "source": "table",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "year(datum.x) >= utcyear(range2.start) && year(datum.x) <= utcyear(range2.end)"
+        },
+        {
+          "type": "formula",
+          "as": "date_end",
+          "expr": "range2.end"
+        },
+        {
+          "type": "formula",
+          "as": "date_start",
+          "expr": "range2.start"
+        },
+        {
+          "type": "aggregate",
+          "fields": [
+            "q25",
+            "q75",
+            "x",
+            "date_end",
+            "date_start"
+          ],
+          "ops": [
+            "min",
+            "max",
+            "min",
+            "min",
+            "min"
+          ],
+          "as": [
+            "q25",
+            "q75",
+            "x",
+            "date_end",
+            "date_start"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "legend",
+      "values": [
+        {
+          "cat": "Models average"
+        },
+        {
+          "cat": "Models amplitude between 25th and 75th percentile"
+        },
+        {
+          "cat": "Selected period(s)"
+        }
+      ]
+    },
+    {
+      "name": "dots",
+      "source": "table",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "hover && hover.datum.x === datum.x"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    {
+      "update": "{ start: utc(1971, 0, 1), end: utc(1981, 0, 1) }",
+      "name": "range1"
+    },
+    {
+      "update": "{ start: utc(2051, 0, 1), end: utc(2061, 0, 1) }",
+      "name": "range2"
+    },
+    {
+      "update": "{\"from\":\"Days\",\"to\":\"Days\",\"value\":1,\"type\":\"factor\"}",
+      "name": "units"
+    },
+    {
+      "name": "range1Middle",
+      "update": "(+range1.start + +range1.end) / 2"
+    },
+    {
+      "name": "range1Label",
+      "update": "utcyear(range1.start) + '-' + utcyear(range1.end)"
+    },
+    {
+      "name": "range2Middle",
+      "update": "range2 ? (+range2.start + +range2.end) / 2 : 0"
+    },
+    {
+      "name": "range2Label",
+      "update": "range2 ? utcyear(range2.start) + '-' + utcyear(range2.end) : ''"
+    },
+    {
+      "name": "hover",
+      "value": null,
+      "on": [
+        {
+          "events": "@cell:mouseover",
+          "update": "datum"
+        },
+        {
+          "events": "@cell:mouseout",
+          "update": "null"
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "utc",
+      "range": "width",
+      "zero": false,
+      "domain": {
+        "data": "table",
+        "field": "x"
+      }
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "range": "height",
+      "zero": false,
+      "nice": true,
+      "domain": {
+        "fields": [
+          {
+            "data": "table",
+            "field": "q75"
+          },
+          {
+            "data": "table",
+            "field": "q25"
+          }
+        ]
+      }
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "zero": false,
+      "points": true,
+      "range": [
+        "#E9ECEE",
+        "#263e57",
+        "#efa600"
+      ],
+      "domain": {
+        "fields": [
+          {
+            "data": "legend",
+            "field": "cat"
+          }
+        ],
+        "sort": true
+      }
+    }
+  ],
+  "axes": [
+    {
+      "scale": "x",
+      "labelOverlap": "parity",
+      "orient": "bottom",
+      "encode": {
+        "labels": {
+          "update": {
+            "font": {
+              "value": "Open Sans"
+            },
+            "fontSize": {
+              "value": 10
+            },
+            "fill": {
+              "value": "#3B4F63"
+            },
+            "opacity": {
+              "value": 0.7
+            }
+          }
+        },
+        "axis": {
+          "update": {
+            "stroke": {
+              "value": "#393F44"
+            },
+            "opacity": {
+              "value": 0.3
+            }
+          }
+        },
+        "ticks": {
+          "update": {
+            "stroke": {
+              "value": "#393F44"
+            },
+            "opacity": {
+              "value": 0.3
+            }
+          }
+        }
+      }
+    },
+    {
+      "scale": "y",
+      "zindex": 1,
+      "labelOverlap": "parity",
+      "orient": "left",
+      "encode": {
+        "labels": {
+          "update": {
+            "font": {
+              "value": "Open Sans"
+            },
+            "fontSize": {
+              "value": 10
+            },
+            "fill": {
+              "value": "#3B4F63"
+            },
+            "opacity": {
+              "value": 0.7
+            }
+          }
+        },
+        "axis": {
+          "update": {
+            "stroke": {
+              "value": "#393F44"
+            },
+            "opacity": {
+              "value": 0.3
+            }
+          }
+        },
+        "ticks": {
+          "update": {
+            "stroke": {
+              "value": "#393F44"
+            },
+            "opacity": {
+              "value": 0.3
+            }
+          }
+        },
+        "title": {
+          "update": {
+            "font": {
+              "value": "Open Sans"
+            },
+            "fontSize": {
+              "value": 10
+            },
+            "fill": {
+              "value": "#3B4F63"
+            },
+            "opacity": {
+              "value": 0.7
+            }
+          }
+        }
+      }
+    }
+  ],
+  "marks": [
+    {
+      "type": "area",
+      "interactive": false,
+      "from": {
+        "data": "table"
+      },
+      "encode": {
+        "enter": {
+          "interpolate": {
+            "value": "monotone"
+          },
+          "x": {
+            "scale": "x",
+            "field": "x"
+          },
+          "y": {
+            "scale": "y",
+            "field": "q75"
+          },
+          "y2": {
+            "scale": "y",
+            "field": "q25"
+          },
+          "fill": {
+            "value": "#E9ECEE"
+          }
+        }
+      }
+    },
+    {
+      "name": "lines",
+      "interactive": false,
+      "type": "line",
+      "from": {
+        "data": "table"
+      },
+      "encode": {
+        "enter": {
+          "interpolate": {
+            "value": "monotone"
+          },
+          "x": {
+            "scale": "x",
+            "field": "x"
+          },
+          "y": {
+            "scale": "y",
+            "field": "q50"
+          },
+          "stroke": {
+            "value": "#263e57"
+          },
+          "strokeWidth": {
+            "value": 2
+          },
+          "strokeDash": {
+            "value": [
+              8,
+              8
+            ]
+          }
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "interactive": false,
+      "from": {
+        "data": "range1Data"
+      },
+      "properties": {
+        "enter": {
+          "interpolate": {
+            "value": "monotone"
+          },
+          "x": {
+            "scale": "x",
+            "field": "x"
+          },
+          "y": {
+            "scale": "y",
+            "field": "q75"
+          },
+          "y2": {
+            "scale": "y",
+            "field": "q25"
+          },
+          "fillOpacity": {
+            "value": 0
+          },
+          "strokeOpacity": {
+            "value": 1
+          },
+          "stroke": {
+            "value": "#EFA600"
+          },
+          "strokeWidth": {
+            "value": 2
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "interactive": false,
+      "from": {
+        "data": "range1Data"
+      },
+      "encode": {
+        "enter": {
+          "x": {
+            "scale": "x",
+            "signal": "range1Middle"
+          },
+          "y": {
+            "scale": "y",
+            "field": "q75"
+          },
+          "dy": {
+            "value": -10
+          },
+          "align": {
+            "value": "center"
+          },
+          "text": {
+            "signal": "'{{range1Label}}'"
+          },
+          "font": {
+            "value": "Open Sans"
+          },
+          "fontSize": {
+            "value": 13
+          },
+          "fontWeight": {
+            "value": "bold"
+          },
+          "fill": {
+            "value": "#EFA600"
+          }
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "interactive": false,
+      "from": {
+        "data": "range2Data"
+      },
+      "encode": {
+        "enter": {
+          "interpolate": {
+            "value": "monotone"
+          },
+          "x": {
+            "scale": "x",
+            "field": "x"
+          },
+          "y": {
+            "scale": "y",
+            "field": "q75"
+          },
+          "y2": {
+            "scale": "y",
+            "field": "q25"
+          },
+          "fillOpacity": {
+            "value": 0
+          },
+          "strokeOpacity": {
+            "value": 1
+          },
+          "stroke": {
+            "value": "#EFA600"
+          },
+          "strokeWidth": {
+            "value": 2
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "interactive": false,
+      "from": {
+        "data": "range2Data"
+      },
+      "encode": {
+        "enter": {
+          "x": {
+            "scale": "x",
+            "signal": "range2Middle"
+          },
+          "y": {
+            "scale": "y",
+            "field": "q75"
+          },
+          "dy": {
+            "value": -10
+          },
+          "align": {
+            "value": "center"
+          },
+          "text": {
+            "signal": "'{{range2Label}}'"
+          },
+          "font": {
+            "value": "Open Sans"
+          },
+          "fontSize": {
+            "value": 13
+          },
+          "fontWeight": {
+            "value": "bold"
+          },
+          "fill": {
+            "value": "#EFA600"
+          }
+        }
+      }
+    },
+    {
+      "name": "points",
+      "interactive": false,
+      "type": "symbol",
+      "from": {
+        "data": "dots"
+      },
+      "encode": {
+        "enter": {
+          "fill": {
+            "value": "#263e57"
+          },
+          "stroke": {
+            "value": "#fff"
+          },
+          "x": {
+            "scale": "x",
+            "field": "x"
+          },
+          "y": {
+            "scale": "y",
+            "field": "q50"
+          }
+        },
+        "update": {
+          "zindex": {
+            "value": 10
+          },
+          "opacity": {
+            "value": 1
+          }
+        }
+      }
+    },
+    {
+      "name": "cell",
+      "type": "path",
+      "from": {
+        "data": "lines"
+      },
+      "transform": [
+        {
+          "type": "voronoi",
+          "x": "datum.x",
+          "y": "datum.y",
+          "size": [
+            {
+              "signal": "width"
+            },
+            {
+              "signal": "height"
+            }
+          ]
+        }
+      ],
+      "encode": {
+        "update": {
+          "fill": {
+            "value": "red"
+          },
+          "path": {
+            "field": "path"
+          },
+          "opacity": {
+            "value": 0
+          }
+        }
+      }
+    }
+  ],
+  "legends": [
+    {
+      "fill": "color",
+      "orient": "bottom",
+      "encode": {
+        "title": {
+          "enter": {
+            "fontSize": {
+              "value": 12
+            }
+          }
+        },
+        "labels": {
+          "enter": {
+            "limit": {
+              "signal": "(width*0.9)"
+            },
+            "fontSize": {
+              "value": 12
+            },
+            "fill": {
+              "value": "#3B4F63"
+            },
+            "opacity": {
+              "value": 0.7
+            }
+          }
+        },
+        "symbols": {
+          "enter": {
+            "shape": {
+              "value": "square"
+            },
+            "size": {
+              "value": 50
+            }
+          }
+        }
+      }
+    }
+  ],
+  "interaction_config": [
+    {
+      "name": "tooltip",
+      "config": {
+        "fields": [
+          {
+            "key": "q50",
+            "label": "Average",
+            "format": ".2f"
+          },
+          {
+            "key": "q25",
+            "label": "25th percentile",
+            "format": ".2f"
+          },
+          {
+            "key": "q75",
+            "label": "75th percentile",
+            "format": ".2f"
+          },
+          {
+            "key": "range",
+            "label": "Date range",
+            "format": null
+          }
+        ]
+      }
+    }
+  ]
+}
